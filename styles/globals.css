@@ -14,3 +14,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.signup{
+  font-family: 'PT Sans Narrow', sans-serif;
+  text-align: center;
+  text-shadow: 2px 2px 2px gray;
+}
