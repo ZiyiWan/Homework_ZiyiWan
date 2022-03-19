@@ -18,6 +18,8 @@ export default function SignInPage() {
 
     axios.post(url, data).then((res) => {
       console.log(res);
+      localStorage.setItem('token', res.data.data.token);
+      console.log(localStorage.getItem('token'))
     });
   };
 
@@ -92,6 +94,9 @@ export default function SignInPage() {
             <span>No account?</span>
             <Link href="/">
               <a>Sign up</a>
+            </Link>
+            <Link href="/studentList">
+              <a>List</a>
             </Link>
           </Space>
         </Col>
