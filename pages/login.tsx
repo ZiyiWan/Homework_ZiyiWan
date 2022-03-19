@@ -1,11 +1,24 @@
 import { Form, Input, Button, Checkbox, Row, Col, Space, Radio } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import axios from "axios";
+import { AES } from "crypto-js";
 
 export default function SignInPage() {
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
-    console.log("Received values of form: ", values.username);
+    console.log("Received values of form: ", values);
+    const data = {
+      email: values.username,
+      password: AES.encrypt(values.password, "cms").toString(),
+      role: values.role,
+    };
+    const url =
+      "http://ec2-13-239-60-161.ap-southeast-2.compute.amazonaws.com:3001/api/login";
+
+    axios.post(url, data).then((res) => {
+      console.log(res);
+    });
   };
 
   return (
