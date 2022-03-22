@@ -18,8 +18,8 @@ export default function SignInPage() {
 
     axios.post(url, data).then((res) => {
       console.log(res);
-      localStorage.setItem('token', res.data.data.token);
-      console.log(localStorage.getItem('token'))
+      localStorage.setItem("token", res.data.data.token);
+      console.log(localStorage.getItem("token"));
     });
   };
 
@@ -79,14 +79,16 @@ export default function SignInPage() {
             </Form.Item>
 
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                block
-              >
-                Sign in
-              </Button>
+              <Link href="/studentList">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                  block
+                >
+                  Sign in
+                </Button>
+              </Link>
             </Form.Item>
           </Form>
 
