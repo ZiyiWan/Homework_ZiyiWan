@@ -1,5 +1,5 @@
 import { Form, Input, Row, Col, Radio, Button, Space } from "antd";
-import { UserOutlined} from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import axios from "axios";
 
@@ -17,7 +17,14 @@ export default function SignUpPage() {
     role: string;
   }
 
-  const onFinish = (values: any) => {
+  //check my code here
+  interface SignUpInfo {
+    role: string;
+    email: string;
+    password: string;
+  }
+
+  const onFinish = (values: SignUpInfo) => {
     console.log("success", values.role);
     const url =
       "http://ec2-13-239-60-161.ap-southeast-2.compute.amazonaws.com:3001/api/signup";
