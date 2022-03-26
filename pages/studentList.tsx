@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Table, Space } from "antd";
+import { formatDistanceToNow } from "date-fns";
 
 function StudentList() {
   const [dataSource, setDataSource] = useState([]);
@@ -71,7 +72,11 @@ function StudentList() {
       title: "Join Time",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (createdAt: any) => <span>{typeof createdAt}</span>,
+      render: (createdAt: any) => {
+        const date = Date.parse(createdAt);
+        const result = formatDistanceToNow(date, { addSuffix: true });
+        return <span>{result}</span>;
+      },
     },
     {
       title: "Action",
