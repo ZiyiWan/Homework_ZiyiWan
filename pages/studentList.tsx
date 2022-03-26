@@ -4,13 +4,12 @@ import { Button, Table, Space } from "antd";
 
 function StudentList() {
   const [dataSource, setDataSource] = useState([]);
-  const [totalPages, setTotalPages] = useState(1);
-
+  const [totalPages, setTotalPages] = useState(10);
   useEffect(() => {
-    getStudents();
+    getStudents(1);
   }, []);
 
-  const getStudents = () => {
+  const getStudents = (page: any) => {
     const config = {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -18,13 +17,12 @@ function StudentList() {
     };
     axios
       .get(
-        "http://ec2-13-239-60-161.ap-southeast-2.compute.amazonaws.com:3001/api/students?page=1&limit=299",
+        `http://ec2-13-239-60-161.ap-southeast-2.compute.amazonaws.com:3001/api/students?page=${page}&limit=10`,
         config
       )
       .then((res) => {
         setDataSource(res.data.data.students);
         setTotalPages(res.data.data.total);
-        console.log(res.data.data.students)
       })
       .catch((err) => console.log(err));
   };
@@ -67,11 +65,17 @@ function StudentList() {
       title: "Student Type",
       dataIndex: "type",
       key: "type",
-      render: (type: any) => <span>{type.name}</span>,
+      render: (type: any) => <span>{type?.name}</span>,
     },
     {
-      title: 'Action',
-      key: 'action',
+      title: "Join Time",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (createdAt: any) => <span>{typeof createdAt}</span>,
+    },
+    {
+      title: "Action",
+      key: "action",
       render: () => (
         <Space size="middle">
           <a>Edit</a>
@@ -93,8 +97,11 @@ function StudentList() {
         columns={columns}
         dataSource={dataSource}
         pagination={{
-          pageSize: 9,
+          defaultPageSize: 10,
           total: totalPages,
+          onChange: (page) => {
+            getStudents(page);
+          },
         }}
       ></Table>
     </>
