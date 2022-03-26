@@ -10,7 +10,7 @@ function StudentList() {
     getStudents(1);
   }, []);
 
-  const getStudents = (page: any) => {
+  const getStudents = (page: number) => {
     const config = {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -24,13 +24,14 @@ function StudentList() {
       .then((res) => {
         setDataSource(res.data.data.students);
         setTotalPages(res.data.data.total);
+        console.log(res.data.data.students)
       })
       .catch((err) => console.log(err));
   };
 
   const columns = [
     {
-      title: "No.",
+      title: "ID",
       dataIndex: "id",
       key: "id",
     },
@@ -94,7 +95,7 @@ function StudentList() {
     <>
       <h1 className="signup">List</h1>
       <Space>
-        <Button type="primary" onClick={getStudents}>
+        <Button type="primary">
           Add
         </Button>
       </Space>
