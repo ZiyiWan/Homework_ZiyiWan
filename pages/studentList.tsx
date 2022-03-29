@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Table, Space } from "antd";
+import { Button, Table, Space, Popconfirm, message } from "antd";
 import { formatDistanceToNow } from "date-fns";
 
 function StudentList() {
@@ -9,6 +9,12 @@ function StudentList() {
   useEffect(() => {
     getStudents(1);
   }, []);
+
+  const deleteStudent = (record: any) => {
+    setDataSource((pre) => {
+      return pre.filter((student) => student.id !== record.id);
+    });
+  };
 
   const getStudents = (page: number) => {
     const config = {
@@ -24,7 +30,7 @@ function StudentList() {
       .then((res) => {
         setDataSource(res.data.data.students);
         setTotalPages(res.data.data.total);
-        console.log(res.data.data.students)
+        console.log(res.data.data.students);
       })
       .catch((err) => console.log(err));
   };
@@ -82,10 +88,15 @@ function StudentList() {
     {
       title: "Action",
       key: "action",
-      render: () => (
+      render: (record: any) => (
         <Space size="middle">
           <a>Edit</a>
-          <a>Delete</a>
+          <Popconfirm
+            title="Are you sure to delete?"
+            onConfirm={deleteStudent}
+          >
+            <a>Delete</a>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -95,9 +106,7 @@ function StudentList() {
     <>
       <h1 className="signup">List</h1>
       <Space>
-        <Button type="primary">
-          Add
-        </Button>
+        <Button type="primary">Add</Button>
       </Space>
       <Table
         columns={columns}
