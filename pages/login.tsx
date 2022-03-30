@@ -79,7 +79,6 @@ export default function SignInPage() {
             </Form.Item>
 
             <Form.Item>
-              <Link href="/studentList">
                 <Button
                   type="primary"
                   htmlType="submit"
@@ -88,7 +87,6 @@ export default function SignInPage() {
                 >
                   Sign in
                 </Button>
-              </Link>
             </Form.Item>
           </Form>
 
