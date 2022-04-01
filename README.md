@@ -1,3 +1,14 @@
-1.不知道怎么把axios那些api call抽出去 不同的位置都有不同的参数要传进来并且用到不同的位置
-2.type化详细讲一讲 什么时候我应该有意识的去想这部分是不是要type化 只是通过尽量不要出现any来判断是否合理 index.tsx 第20行开始
-3.login中设置role为required 但是不选择role还是可以登录
+1.const data = getService("students?", `page=${page}&limit=10`, token);
+  console.log(data)
+  return data
+  返回值是一个Promise 不能直接取到值
+Promise {<pending>}
+[[Prototype]]: Promise
+[[PromiseState]]: "fulfilled"
+[[PromiseResult]]: Object
+做了这样的处理才拿到值
+getStudents(currentPage, token).then(function (res) {
+      setDataSource(res.data.students);
+      setTotalPages(res.data.total);
+    });
+有没有直接取到值的办法

@@ -26,6 +26,7 @@ function deleteService(url: string, param: string, token: any) {
 
 export async function getStudents(page: number, token: any) {
   const data = getService("students?", `page=${page}&limit=10`, token);
+  console.log(data)
   return data;
 }
 
