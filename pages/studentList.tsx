@@ -1,39 +1,45 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Button, Table, Space, Popconfirm, message } from "antd";
 import { formatDistanceToNow } from "date-fns";
+import { deleteStudent, getStudents } from "../apiService/withToken";
 
 function StudentList() {
   const [dataSource, setDataSource] = useState([]);
   const [totalPages, setTotalPages] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
-    getStudents(1);
+    const token = localStorage.getItem("token");
+    console.log(token);
+    getStudents(1, token).then(function (res) {
+      console.log(res.data.students);
+      setDataSource(res.data.students);
+      setTotalPages(res.data.total);
+    });
   }, []);
 
-  const deleteStudent = (record: any) => {
-    setDataSource((pre) => {
-      return pre.filter((student) => student.id !== record.id);
+  function confirm(record: any) {
+    console.log(typeof record.id);
+    const token = localStorage.getItem("token");
+    deleteStudent(record.id, token);
+    getStudents(currentPage, token).then(function (res) {
+      setDataSource(res.data.students);
+      setTotalPages(res.data.total);
     });
-  };
+    message.success("Deleted");
+  }
 
-  const getStudents = (page: number) => {
-    const config = {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    };
-    axios
-      .get(
-        `http://ec2-13-239-60-161.ap-southeast-2.compute.amazonaws.com:3001/api/students?page=${page}&limit=10`,
-        config
-      )
-      .then((res) => {
-        setDataSource(res.data.data.students);
-        setTotalPages(res.data.data.total);
-        console.log(res.data.data.students);
-      })
-      .catch((err) => console.log(err));
-  };
+  function cancel() {
+    message.error("Cancel");
+  }
+
+  function onPageChange(page: number): void {
+    const token = localStorage.getItem("token");
+    getStudents(page, token).then(function (res) {
+      setDataSource(res.data.students);
+      setTotalPages(res.data.total);
+    });
+  }
 
   const columns = [
     {
@@ -93,7 +99,12 @@ function StudentList() {
           <a>Edit</a>
           <Popconfirm
             title="Are you sure to delete?"
-            onConfirm={deleteStudent}
+            onConfirm={() => {
+              confirm(record);
+            }}
+            onCancel={cancel}
+            okText="Confirm"
+            cancelText="Cancel"
           >
             <a>Delete</a>
           </Popconfirm>
@@ -115,7 +126,8 @@ function StudentList() {
           defaultPageSize: 10,
           total: totalPages,
           onChange: (page) => {
-            getStudents(page);
+            onPageChange(page);
+            setCurrentPage(page);
           },
         }}
       ></Table>

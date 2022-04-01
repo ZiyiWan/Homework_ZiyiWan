@@ -1,36 +1,27 @@
 import { Form, Input, Row, Col, Radio, Button, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import axios from "axios";
-import { postService } from "./axiosService/apiService";
+import { signUpService } from "../apiService/withoutToken";
+import { signUpInfo, signUpRequest } from "../dataModel/dataModel";
 
 export default function SignUpPage() {
   const [form] = Form.useForm();
-  interface SignUpRequest {
-    email: string;
-    password: string;
-    role: string;
-  }
-  //check my code here
-  interface SignUpInfo {
-    role: string;
-    email: string;
-    password: string;
-  }
-  const onFinish = (values: SignUpInfo) => {
-    console.log("success", values.role);
+  
+  const onFinish = (values: signUpInfo) => {
+    console.log("success");
     const email = values.email;
     const password = values.password;
     const role = values.role;
 
-    const request: SignUpRequest = {
+    const request: signUpRequest = {
       email,
       password,
       role,
     };
 
-    postService("signup", request);
+    signUpService(request);
   };
+  
   const onFinishFailed = (errInfo: any) => {
     console.log("Failed", errInfo);
   };

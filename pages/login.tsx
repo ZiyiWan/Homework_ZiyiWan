@@ -3,24 +3,19 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import axios from "axios";
 import { AES } from "crypto-js";
+import { loginRequest } from "../dataModel/dataModel";
+import { loginService } from "../apiService/withoutToken";
 
 export default function SignInPage() {
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
-    const data = {
+    const data: loginRequest = {
       email: values.username,
       password: AES.encrypt(values.password, "cms").toString(),
       role: values.role,
     };
-    const url =
-      "http://ec2-13-239-60-161.ap-southeast-2.compute.amazonaws.com:3001/api/login";
 
-    axios.post(url, data).then((res) => {
-      console.log(res);
-      localStorage.setItem("token", res.data.data.token);
-      console.log(localStorage.getItem("token"));
-    });
+    loginService(data);
   };
 
   return (
@@ -33,6 +28,7 @@ export default function SignInPage() {
             className="login-form"
             initialValues={{ remember: true }}
             onFinish={onFinish}
+            form={form}
           >
             <Form.Item name="role" rules={[{ required: true }]}>
               <Radio.Group>
@@ -79,14 +75,14 @@ export default function SignInPage() {
             </Form.Item>
 
             <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="login-form-button"
-                  block
-                >
-                  Sign in
-                </Button>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                block
+              >
+                Sign in
+              </Button>
             </Form.Item>
           </Form>
 
