@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table, Space, Popconfirm, message } from "antd";
+import {
+  Button,
+  Table,
+  Space,
+  Popconfirm,
+  message,
+  Modal,
+  Form,
+  Select,
+  Input,
+} from "antd";
 import { formatDistanceToNow } from "date-fns";
 import { deleteStudent, getStudents } from "../apiService/withToken";
+import { collectionCreateFormProps } from "../dataModel/dataModel";
+import { PlusOutlined, UserOutlined } from "@ant-design/icons";
 
 function StudentList() {
   const [dataSource, setDataSource] = useState([]);
   const [totalPages, setTotalPages] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -17,6 +30,7 @@ function StudentList() {
       setTotalPages(res.data.total);
     });
   }, []);
+  const { Option } = Select;
 
   function confirm(record: any) {
     console.log(typeof record.id);
@@ -40,6 +54,81 @@ function StudentList() {
       setTotalPages(res.data.total);
     });
   }
+
+  const CollectionCreateForm: React.FC<collectionCreateFormProps> = ({
+    visible,
+    onCreate,
+    onCancel,
+  }) => {
+    const [form] = Form.useForm();
+    return (
+      <Modal
+        visible={visible}
+        title="Add Student"
+        okText="Add"
+        cancelText="Cancel"
+        onCancel={onCancel}
+        onOk={() => {
+          form
+            .validateFields()
+            .then((values) => {
+              form.resetFields();
+              onCreate(values);
+            })
+            .catch((info) => {
+              console.log("Validate Failed:", info);
+            });
+        }}
+      >
+        <Form form={form} name="form_in_modal">
+          <Form.Item name={"name"} label="Name" rules={[{ required: true }]}>
+            <Input placeholder="Student Name" />
+          </Form.Item>
+
+          <Form.Item
+            name="email"
+            label="E-mail"
+            rules={[
+              {
+                type: "email",
+                message: "The input is not valid E-mail!",
+              },
+              {
+                required: true,
+                message: "Please input your E-mail!",
+              },
+            ]}
+          >
+            <Input placeholder="Please input email" />
+          </Form.Item>
+
+          <Form.Item name="area" label="Area" rules={[{ required: true }]}>
+            <Select>
+              <Option value="China">China</Option>
+              <Option value="Oman">Oman</Option>
+              <Option value="Liberia">Liberia</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="stuType"
+            label="Student Type"
+            rules={[{ required: true }]}
+          >
+            <Select>
+              <Option value="1">developer</Option>
+              <Option value="2">tester</Option>
+            </Select>
+          </Form.Item>
+        </Form>
+      </Modal>
+    );
+  };
+
+  const onCreate = (values: any) => {
+    console.log("Received values of form: ", values);
+    setVisible(false);
+  };
 
   const columns = [
     {
@@ -117,7 +206,24 @@ function StudentList() {
     <>
       <h1 className="signup">List</h1>
       <Space>
-        <Button type="primary">Add</Button>
+        <div>
+          <Button
+            icon={<PlusOutlined />}
+            type="primary"
+            onClick={() => {
+              setVisible(true);
+            }}
+          >
+            Add
+          </Button>
+          <CollectionCreateForm
+            visible={visible}
+            onCreate={onCreate}
+            onCancel={() => {
+              setVisible(false);
+            }}
+          />
+        </div>
       </Space>
       <Table
         columns={columns}

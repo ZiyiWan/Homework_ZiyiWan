@@ -27,3 +27,15 @@ export interface signUpInfo {
   email: string;
   password: string;
 }
+
+interface Values {
+  title: string;
+  description: string;
+  modifier: string;
+}
+
+export interface collectionCreateFormProps {
+  visible: boolean;
+  onCreate: (values: Values) => void;
+  onCancel: () => void;
+}

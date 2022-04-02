@@ -33,3 +33,6 @@ export async function getStudents(page: number, token: any) {
 export async function deleteStudent(id: number, token: any) {
   deleteService("students/", `${id}`, token);
 }
+
+
+
