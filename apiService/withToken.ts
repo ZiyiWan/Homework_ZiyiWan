@@ -51,6 +51,12 @@ export async function getStudents(page: number, token: any) {
   return data;
 }
 
+export async function getStudentsByName(name:string, page: number, token: any) {
+  const data = getService("students?", `query=${name}&page=${page}&limit=10`, token);
+  console.log(data);
+  return data;
+}
+
 export async function deleteStudent(id: number, token: any) {
   deleteService("students/", `${id}`, token);
 }

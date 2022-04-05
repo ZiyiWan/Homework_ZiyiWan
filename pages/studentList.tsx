@@ -9,12 +9,15 @@ import {
   Form,
   Select,
   Input,
+  Row,
+  Col,
 } from "antd";
 import { formatDistanceToNow } from "date-fns";
 import {
   addStudent,
   deleteStudent,
   getStudents,
+  getStudentsByName,
 } from "../apiService/withToken";
 import { collectionCreateFormProps } from "../dataModel/dataModel";
 import { PlusOutlined } from "@ant-design/icons";
@@ -23,8 +26,10 @@ function StudentList() {
   const [dataSource, setDataSource] = useState([]);
   const [totalPages, setTotalPages] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [visible, setVisible] = useState(false);
+  const [visibleOfAddStu, setVisibleOfAddStu] = useState(false);
+  const [visibleOfEditStu, setVisibleOfEditStu] = useState(false);
   const { Option } = Select;
+  const { Search } = Input;
   useEffect(() => {
     const token = localStorage.getItem("token");
     console.log(token);
@@ -50,6 +55,16 @@ function StudentList() {
     message.error("Cancel");
   }
 
+  const onSearch = (value: any) => {
+    console.log(value);
+    const token = localStorage.getItem("token");
+    console.log(token);
+    getStudentsByName(value, currentPage, token).then(function (res) {
+      setDataSource(res.data.students);
+      setTotalPages(res.data.total);
+    });
+  };
+
   function onPageChange(page: number): void {
     const token = localStorage.getItem("token");
     getStudents(page, token).then(function (res) {
@@ -68,6 +83,7 @@ function StudentList() {
       <Modal
         visible={visible}
         width={500}
+        mask={false}
         title="Add Student"
         okText="Add"
         cancelText="Cancel"
@@ -151,7 +167,7 @@ function StudentList() {
 
     const token = localStorage.getItem("token");
     addStudent(stuInfo, token);
-    setVisible(false);
+    setVisibleOfAddStu(false);
   };
 
   const columns = [
@@ -209,7 +225,24 @@ function StudentList() {
       key: "action",
       render: (record: any) => (
         <Space size="middle">
-          <a>Edit</a>
+          <div>
+            <Button
+              type="link"
+              onClick={() => {
+                setVisibleOfEditStu(true);
+              }}
+            >
+              Edit
+            </Button>
+            <CollectionCreateForm
+              visible={visibleOfEditStu}
+              onCreate={onCreate}
+              onCancel={() => {
+                setVisibleOfEditStu(false);
+              }}
+            />
+          </div>
+
           <Popconfirm
             title="Are you sure to delete?"
             onConfirm={() => {
@@ -229,26 +262,39 @@ function StudentList() {
   return (
     <>
       <h1 className="signup">List</h1>
-      <Space>
-        <div>
-          <Button
-            icon={<PlusOutlined />}
-            type="primary"
-            onClick={() => {
-              setVisible(true);
-            }}
-          >
-            Add
-          </Button>
-          <CollectionCreateForm
-            visible={visible}
-            onCreate={onCreate}
-            onCancel={() => {
-              setVisible(false);
-            }}
+      <Row>
+        <Col span={8}>
+          <Space>
+            <div>
+              <Button
+                icon={<PlusOutlined />}
+                type="primary"
+                onClick={() => {
+                  setVisibleOfAddStu(true);
+                }}
+              >
+                Add
+              </Button>
+              <CollectionCreateForm
+                visible={visibleOfAddStu}
+                onCreate={onCreate}
+                onCancel={() => {
+                  setVisibleOfAddStu(false);
+                }}
+              />
+            </div>
+          </Space>
+        </Col>
+        <Col span={8}></Col>
+        <Col span={8}>
+          <Search
+            placeholder="input search text"
+            onSearch={onSearch}
+            enterButton
           />
-        </div>
-      </Space>
+        </Col>
+      </Row>
+
       <Table
         columns={columns}
         dataSource={dataSource}

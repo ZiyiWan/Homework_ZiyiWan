@@ -12,3 +12,6 @@ getStudents(currentPage, token).then(function (res) {
       setTotalPages(res.data.total);
     });
 有没有直接取到值的办法
+/////////////////////////////////////////////////////////
+05/04/2022
+1.edit的弹窗CSS样式有问题
