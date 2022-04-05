@@ -11,16 +11,20 @@ import {
   Input,
 } from "antd";
 import { formatDistanceToNow } from "date-fns";
-import { deleteStudent, getStudents } from "../apiService/withToken";
+import {
+  addStudent,
+  deleteStudent,
+  getStudents,
+} from "../apiService/withToken";
 import { collectionCreateFormProps } from "../dataModel/dataModel";
-import { PlusOutlined, UserOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 
 function StudentList() {
   const [dataSource, setDataSource] = useState([]);
   const [totalPages, setTotalPages] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [visible, setVisible] = useState(false);
-
+  const { Option } = Select;
   useEffect(() => {
     const token = localStorage.getItem("token");
     console.log(token);
@@ -30,9 +34,8 @@ function StudentList() {
       setTotalPages(res.data.total);
     });
   }, []);
-  const { Option } = Select;
 
-  function confirm(record: any) {
+  function confirmDelete(record: any) {
     console.log(typeof record.id);
     const token = localStorage.getItem("token");
     deleteStudent(record.id, token);
@@ -64,6 +67,7 @@ function StudentList() {
     return (
       <Modal
         visible={visible}
+        width={500}
         title="Add Student"
         okText="Add"
         cancelText="Cancel"
@@ -80,7 +84,12 @@ function StudentList() {
             });
         }}
       >
-        <Form form={form} name="form_in_modal">
+        <Form
+          form={form}
+          name="form_in_modal"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+        >
           <Form.Item name={"name"} label="Name" rules={[{ required: true }]}>
             <Input placeholder="Student Name" />
           </Form.Item>
@@ -116,8 +125,8 @@ function StudentList() {
             rules={[{ required: true }]}
           >
             <Select>
-              <Option value="1">developer</Option>
-              <Option value="2">tester</Option>
+              <Option value={1}>tester</Option>
+              <Option value={2}>developer</Option>
             </Select>
           </Form.Item>
         </Form>
@@ -127,6 +136,21 @@ function StudentList() {
 
   const onCreate = (values: any) => {
     console.log("Received values of form: ", values);
+    const name: string = values.name;
+    const country: string = values.area;
+    const email: string = values.email;
+    const type: number = values.stuType;
+
+    const stuInfo = {
+      name,
+      country,
+      email,
+      type,
+    };
+    console.log("stuInfo:", stuInfo);
+
+    const token = localStorage.getItem("token");
+    addStudent(stuInfo, token);
     setVisible(false);
   };
 
@@ -189,7 +213,7 @@ function StudentList() {
           <Popconfirm
             title="Are you sure to delete?"
             onConfirm={() => {
-              confirm(record);
+              confirmDelete(record);
             }}
             onCancel={cancel}
             okText="Confirm"
