@@ -18,5 +18,15 @@ a {
 .signup{
   font-family: 'PT Sans Narrow', sans-serif;
   text-align: center;
-  text-shadow: 2px 2px 2px gray;
+  text-shadow: 2px 2px 2px rgb(228, 232, 238);
 }
+
+.logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+
