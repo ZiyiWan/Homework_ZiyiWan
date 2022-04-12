@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   Button,
   Table,
@@ -199,9 +200,12 @@ function StudentList() {
     },
     {
       title: "Name",
-      dataIndex: "name",
       key: "name",
-      render: (text: string) => <a>{text}</a>,
+      render: (record: any) => (
+        <Link as={`/student/${record.id}`} href="/studentDetail">
+          <a>{record.name}</a>
+        </Link>
+      ),
     },
     {
       title: "Area",
