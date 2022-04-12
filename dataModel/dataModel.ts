@@ -38,4 +38,12 @@ export interface collectionCreateFormProps {
   visible: boolean;
   onCreate: (values: Values) => void;
   onCancel: () => void;
+  onEdit?: (values: studentEditInfo) => void;
+}
+
+interface studentEditInfo {
+  name: string;
+  country: string;
+  email: string;
+  type: number;
 }

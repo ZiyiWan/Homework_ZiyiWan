@@ -77,13 +77,14 @@ function StudentList() {
     visible,
     onCreate,
     onCancel,
+    onEdit,
   }) => {
     const [form] = Form.useForm();
     return (
       <Modal
         visible={visible}
         width={500}
-        mask={false}
+        mask={true}
         title="Add Student"
         okText="Add"
         cancelText="Cancel"
@@ -170,6 +171,26 @@ function StudentList() {
     setVisibleOfAddStu(false);
   };
 
+  const onEidt = (values: any) => {
+    console.log("Received values of form: ", values);
+    const name: string = values.name;
+    const country: string = values.area;
+    const email: string = values.email;
+    const type: number = values.stuType;
+
+    const stuInfo = {
+      name,
+      country,
+      email,
+      type,
+    };
+    console.log("stuInfo:", stuInfo);
+
+    const token = localStorage.getItem("token");
+    addStudent(stuInfo, token);
+    setVisibleOfAddStu(false);
+  };
+
   const columns = [
     {
       title: "ID",
@@ -234,13 +255,6 @@ function StudentList() {
             >
               Edit
             </Button>
-            <CollectionCreateForm
-              visible={visibleOfEditStu}
-              onCreate={onCreate}
-              onCancel={() => {
-                setVisibleOfEditStu(false);
-              }}
-            />
           </div>
 
           <Popconfirm
@@ -261,7 +275,6 @@ function StudentList() {
 
   return (
     <>
-      <h1 className="signup">List</h1>
       <Row>
         <Col span={8}>
           <Space>
@@ -281,6 +294,14 @@ function StudentList() {
                 onCancel={() => {
                   setVisibleOfAddStu(false);
                 }}
+              />
+              <CollectionCreateForm
+                visible={visibleOfEditStu}
+                onCreate={onCreate}
+                onCancel={() => {
+                  setVisibleOfEditStu(false);
+                }}
+                onEdit={onEidt}
               />
             </div>
           </Space>
