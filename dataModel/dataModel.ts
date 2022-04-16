@@ -47,3 +47,28 @@ interface studentEditInfo {
   email: string;
   type: number;
 }
+
+export interface studentInfo {
+  address: [];
+  age: number;
+  avatar: string;
+  country: string;
+  coures: [];
+  createdAt: string;
+  description: string;
+  education: string;
+  email: string;
+  gender: number;
+  id: number;
+  interest: [""];
+  memberEndAt: string;
+  memberStartAt: string;
+  name: string;
+  phone: string;
+  profileId: number;
+  type: {
+    id: number;
+    name: string;
+  };
+  updatedAt: string;
+}

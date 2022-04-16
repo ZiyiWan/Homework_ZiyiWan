@@ -202,7 +202,7 @@ function StudentList() {
       title: "Name",
       key: "name",
       render: (record: any) => (
-        <Link as={`/student/${record.id}`} href="/studentDetail">
+        <Link as={`/student/${record.id}`} href="/layoutStudentDetail">
           <a>{record.name}</a>
         </Link>
       ),
