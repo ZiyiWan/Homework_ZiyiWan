@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getStudentsById } from "../apiService/withToken";
 import { studentInfo } from "../dataModel/dataModel";
-import { Row, Col, Descriptions, Tabs, Avatar, Tag } from "antd";
+import { Row, Col, Descriptions, Tabs, Avatar, Tag, Divider } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 export default function StudentDetail() {
@@ -29,18 +29,16 @@ export default function StudentDetail() {
 
   return (
     <>
-      <Row>
-        <Col span={8}>
+      <Row style={{ background: "white" }}>
+        <Col span={8} style={{ padding: "15px", border: "solid" }}>
           <div
             className="avatar"
-            style={{ textAlign: "center", border: "solid" }}
+            style={{ textAlign: "center", border: "20px" }}
           >
             <Avatar size={64} icon={<UserOutlined />} />
           </div>
-          <div
-            className="info"
-            style={{ textAlign: "center", border: "solid " }}
-          >
+          <Divider></Divider>
+          <div className="info">
             <Descriptions layout="vertical" column={2} colon={false}>
               <Descriptions.Item
                 label="Name"
