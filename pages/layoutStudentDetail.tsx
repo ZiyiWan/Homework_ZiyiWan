@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Breadcrumb, Button, Menu } from "antd";
+import { useRouter } from "next/router";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -17,6 +18,7 @@ function layoutPage() {
   const { Header, Sider, Content } = Layout;
   const { SubMenu } = Menu;
   const [collapsed, setCollapsed] = useState(false);
+  const router = useRouter();
 
   function onCollapse() {
     setCollapsed(!collapsed);
@@ -55,7 +57,13 @@ function layoutPage() {
                 Overview
               </Menu.Item>
               <SubMenu key="sub1" icon={<UserOutlined />} title="Student">
-                <Menu.Item key="2" icon={<TeamOutlined />}>
+                <Menu.Item
+                  key="2"
+                  icon={<TeamOutlined />}
+                  onClick={() => {
+                    router.push("/layoutPage");
+                  }}
+                >
                   Student List
                 </Menu.Item>
               </SubMenu>
@@ -88,7 +96,8 @@ function layoutPage() {
             <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
               <Breadcrumb.Item>Student</Breadcrumb.Item>
-              <Breadcrumb.Item>Student List</Breadcrumb.Item>
+              <Breadcrumb.Item href="/layoutPage">Student List</Breadcrumb.Item>
+              <Breadcrumb.Item>Student Detail</Breadcrumb.Item>
             </Breadcrumb>
             <StudentDetail />
           </Content>
