@@ -30,17 +30,15 @@ export default function StudentDetail() {
       const stuGender = data.gender;
       const courses = data.courses;
       const coursesData: any = courses.map((course: any) => {
-        [
-          {
-            courseId: course.createdAt,
-            name: course.name,
-            type: course.type,
-            updatedAt: course.updatedAt,
-          },
-        ];
+        return {
+          courseId: course.createdAt,
+          name: course.name,
+          type: course.type?.name,
+          updatedAt: course.updatedAt,
+        };
       });
       console.log(courses);
-      setDataSource(res.data.courses);
+      setDataSource(coursesData);
       setStu(data);
       if (stuGender === 1) {
         setGender("Male");
