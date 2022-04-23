@@ -53,7 +53,7 @@ export interface studentInfo {
   age: number;
   avatar: string;
   country: string;
-  coures: [];
+  courses: [];
   createdAt: string;
   description: string;
   education: string;

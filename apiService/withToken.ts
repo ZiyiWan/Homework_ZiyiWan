@@ -70,3 +70,13 @@ export async function deleteStudent(id: number, token: any) {
 export async function addStudent(stuInfo: any, token: any) {
   postService("students", token, stuInfo);
 }
+
+export async function getTeachers(page: number, token: any) {
+  const data = getService("teachers?", `page=${page}&limit=10`, token);
+  console.log(data);
+  return data;
+}
+
+export async function deleteTeacher(id: number, token: any) {
+  deleteService("teachers/", `${id}`, token);
+}

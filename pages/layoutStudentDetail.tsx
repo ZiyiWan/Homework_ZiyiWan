@@ -50,7 +50,7 @@ function layoutPage() {
             )}
           </Button>
         </Header>
-        <Layout>
+        <Layout style={{ height: "100vh" }}>
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
             <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
               <Menu.Item key="1" icon={<DashboardOutlined />}>
@@ -72,7 +72,13 @@ function layoutPage() {
                 icon={<DeploymentUnitOutlined />}
                 title="Teacher"
               >
-                <Menu.Item key="3" icon={<TeamOutlined />}>
+                <Menu.Item
+                  key="3"
+                  icon={<TeamOutlined />}
+                  onClick={() => {
+                    router.push("/teacherList");
+                  }}
+                >
                   Teacher List
                 </Menu.Item>
               </SubMenu>
