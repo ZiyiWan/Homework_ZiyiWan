@@ -20,7 +20,7 @@ import {
   getStudents,
   getStudentsByName,
 } from "../apiService/withToken";
-import { collectionCreateFormProps } from "../dataModel/dataModel";
+import { collectionCreateFormProps, studentInfo } from "../dataModel/dataModel";
 import { PlusOutlined } from "@ant-design/icons";
 
 function StudentList() {
@@ -29,6 +29,7 @@ function StudentList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [visibleOfAddStu, setVisibleOfAddStu] = useState(false);
   const [visibleOfEditStu, setVisibleOfEditStu] = useState(false);
+  const [stuInfo, setStuInfo] = useState<studentInfo>();
   const { Option } = Select;
   const { Search } = Input;
   useEffect(() => {
@@ -78,7 +79,6 @@ function StudentList() {
     visible,
     onCreate,
     onCancel,
-    onEdit,
   }) => {
     const [form] = Form.useForm();
     return (
@@ -141,6 +141,85 @@ function StudentList() {
             name="stuType"
             label="Student Type"
             rules={[{ required: true }]}
+          >
+            <Select>
+              <Option value={1}>tester</Option>
+              <Option value={2}>developer</Option>
+            </Select>
+          </Form.Item>
+        </Form>
+      </Modal>
+    );
+  };
+
+  const CollectionEditForm: React.FC<collectionCreateFormProps> = ({
+    visible,
+    onCreate,
+    onCancel,
+  }) => {
+    const [form] = Form.useForm();
+    return (
+      <Modal
+        visible={visible}
+        width={500}
+        mask={true}
+        title="Edit Student"
+        okText="Edit"
+        cancelText="Cancel"
+        onCancel={onCancel}
+        onOk={() => {
+          form
+            .validateFields()
+            .then((values) => {
+              form.resetFields();
+              onCreate(values);
+            })
+            .catch((info) => {
+              console.log("Validate Failed:", info);
+            });
+        }}
+      >
+        <Form
+          form={form}
+          name="form_in_modal"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+        >
+          <Form.Item name={"name"} label="Name" rules={[{ required: true }]} initialValue={stuInfo?.name}>
+            <Input placeholder="Student Name" />
+          </Form.Item>
+
+          <Form.Item
+            name="email"
+            label="E-mail"
+            rules={[
+              {
+                type: "email",
+                message: "The input is not valid E-mail!",
+              },
+              {
+                required: true,
+                message: "Please input your E-mail!",
+              },
+            ]}
+            initialValue={stuInfo?.email}
+          >
+            <Input placeholder="Please input email" />
+          </Form.Item>
+
+          <Form.Item name="area" label="Area" rules={[{ required: true }]} initialValue={stuInfo?.country}>
+            <Select>
+              <Option value="China">China</Option>
+              <Option value="Oman">Oman</Option>
+              <Option value="Liberia">Liberia</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="stuType"
+            label="Student Type"
+            rules={[{ required: true }]}
+            initialValue={stuInfo?.type?.name}
           >
             <Select>
               <Option value={1}>tester</Option>
@@ -255,6 +334,11 @@ function StudentList() {
               type="link"
               onClick={() => {
                 setVisibleOfEditStu(true);
+                console.log("record is : ");
+                console.log(record);
+                setStuInfo(record);
+                console.log("stu info is  : ");
+                console.log(stuInfo);
               }}
             >
               Edit
@@ -299,13 +383,12 @@ function StudentList() {
                   setVisibleOfAddStu(false);
                 }}
               />
-              <CollectionCreateForm
+              <CollectionEditForm
                 visible={visibleOfEditStu}
-                onCreate={onCreate}
+                onCreate={onEidt}
                 onCancel={() => {
                   setVisibleOfEditStu(false);
                 }}
-                onEdit={onEidt}
               />
             </div>
           </Space>

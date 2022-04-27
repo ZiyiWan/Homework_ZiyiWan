@@ -33,7 +33,7 @@ export default function StudentDetail() {
         return {
           courseId: course.createdAt,
           name: course.name,
-          type: course.type?.name,
+          type: course.type?.map((type:any)=> type.name).join(","),
           updatedAt: course.updatedAt,
         };
       });

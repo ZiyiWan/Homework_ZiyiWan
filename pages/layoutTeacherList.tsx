@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Breadcrumb, Button, Menu } from "antd";
+import TeachersList from "./teacherList";
 import { useRouter } from "next/router";
-import StudentList from "./studentList";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -52,7 +52,7 @@ function layoutPage() {
         </Header>
         <Layout>
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-            <Menu theme="dark" defaultSelectedKeys={["2"]} mode="inline" defaultOpenKeys={["sub1"]}>
+            <Menu theme="dark" defaultSelectedKeys={["3"]} mode="inline" defaultOpenKeys={["sub2"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
                 Overview
               </Menu.Item>
@@ -101,10 +101,10 @@ function layoutPage() {
           >
             <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
-              <Breadcrumb.Item>Student</Breadcrumb.Item>
-              <Breadcrumb.Item>Student List</Breadcrumb.Item>
+              <Breadcrumb.Item>Teacher</Breadcrumb.Item>
+              <Breadcrumb.Item>Teacher List</Breadcrumb.Item>
             </Breadcrumb>
-            <StudentList />
+            <TeachersList />
           </Content>
         </Layout>
       </Layout>

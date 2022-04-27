@@ -52,7 +52,7 @@ function layoutPage() {
         </Header>
         <Layout style={{ height: "100vh" }}>
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-            <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+            <Menu theme="dark" defaultSelectedKeys={["sub1"]} mode="inline" defaultOpenKeys={["sub1"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
                 Overview
               </Menu.Item>
@@ -102,7 +102,14 @@ function layoutPage() {
             <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
               <Breadcrumb.Item>Student</Breadcrumb.Item>
-              <Breadcrumb.Item href="/layoutPage">Student List</Breadcrumb.Item>
+              <Breadcrumb.Item
+                
+                onClick={() => {
+                  router.push("/layoutPage");
+                }}
+              >
+                <a>Student List</a>
+              </Breadcrumb.Item>
               <Breadcrumb.Item>Student Detail</Breadcrumb.Item>
             </Breadcrumb>
             <StudentDetail />

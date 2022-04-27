@@ -41,7 +41,7 @@ export interface collectionCreateFormProps {
   onEdit?: (values: studentEditInfo) => void;
 }
 
-interface studentEditInfo {
+export interface studentEditInfo {
   name: string;
   country: string;
   email: string;
