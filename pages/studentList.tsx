@@ -17,6 +17,7 @@ import { formatDistanceToNow } from "date-fns";
 import {
   addStudent,
   deleteStudent,
+  editStudent,
   getStudents,
   getStudentsByName,
 } from "../apiService/withToken";
@@ -185,7 +186,12 @@ function StudentList() {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
         >
-          <Form.Item name={"name"} label="Name" rules={[{ required: true }]} initialValue={stuInfo?.name}>
+          <Form.Item
+            name={"name"}
+            label="Name"
+            rules={[{ required: true }]}
+            initialValue={stuInfo?.name}
+          >
             <Input placeholder="Student Name" />
           </Form.Item>
 
@@ -207,7 +213,12 @@ function StudentList() {
             <Input placeholder="Please input email" />
           </Form.Item>
 
-          <Form.Item name="area" label="Area" rules={[{ required: true }]} initialValue={stuInfo?.country}>
+          <Form.Item
+            name="area"
+            label="Area"
+            rules={[{ required: true }]}
+            initialValue={stuInfo?.country}
+          >
             <Select>
               <Option value="China">China</Option>
               <Option value="Oman">Oman</Option>
@@ -257,18 +268,24 @@ function StudentList() {
     const country: string = values.area;
     const email: string = values.email;
     const type: number = values.stuType;
+    const id: any = stuInfo?.id;
 
-    const stuInfo = {
+    const stuNewInfo = {
+      id,
       name,
       country,
       email,
       type,
     };
-    console.log("stuInfo:", stuInfo);
+    console.log("stuInfo:", stuNewInfo);
 
     const token = localStorage.getItem("token");
-    addStudent(stuInfo, token);
-    setVisibleOfAddStu(false);
+    editStudent(stuNewInfo, token);
+    getStudents(currentPage, token).then(function (res) {
+      setDataSource(res.data.students);
+      setTotalPages(res.data.total);
+    });
+    setVisibleOfEditStu(false);
   };
 
   const columns = [

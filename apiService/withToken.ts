@@ -45,6 +45,27 @@ function postService(url: string, token: any, data: any) {
   return result;
 }
 
+function putService(url: string, token: any, data: any) {
+  const result = axios
+    .put(basedURL + url, data, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then(function (res) {
+      console.log(res.data.data);
+      alert("success");
+      return res;
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert("error");
+      return error;
+    });
+
+  return result;
+}
+
 export async function getStudents(page: number, token: any) {
   const data = getService("students?", `page=${page}&limit=10`, token);
   console.log(data);
@@ -70,6 +91,11 @@ export async function deleteStudent(id: number, token: any) {
 export async function addStudent(stuInfo: any, token: any) {
   postService("students", token, stuInfo);
 }
+
+export async function editStudent(stuInfo: any, token: any) {
+  putService("students", token, stuInfo);
+}
+
 
 export async function getTeachers(page: number, token: any) {
   const data = getService("teachers?", `page=${page}&limit=10`, token);
