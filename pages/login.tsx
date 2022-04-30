@@ -1,7 +1,6 @@
 import { Form, Input, Button, Checkbox, Row, Col, Space, Radio } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import axios from "axios";
 import { AES } from "crypto-js";
 import { loginRequest } from "../dataModel/dataModel";
 import { loginService } from "../apiService/withoutToken";
