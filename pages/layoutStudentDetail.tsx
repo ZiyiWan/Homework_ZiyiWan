@@ -78,7 +78,7 @@ function layoutPage() {
                   key="3"
                   icon={<TeamOutlined />}
                   onClick={() => {
-                    router.push("/teacherList");
+                    router.push("/layoutTeacherList");
                   }}
                 >
                   Teacher List
