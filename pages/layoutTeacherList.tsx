@@ -12,6 +12,8 @@ import {
   DeploymentUnitOutlined,
   ReadOutlined,
   ProfileOutlined,
+  FileAddOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 
 function layoutPage() {
@@ -52,7 +54,12 @@ function layoutPage() {
         </Header>
         <Layout>
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-            <Menu theme="dark" defaultSelectedKeys={["3"]} mode="inline" defaultOpenKeys={["sub2"]}>
+            <Menu
+              theme="dark"
+              defaultSelectedKeys={["3"]}
+              mode="inline"
+              defaultOpenKeys={["sub2"]}
+            >
               <Menu.Item key="1" icon={<DashboardOutlined />}>
                 Overview
               </Menu.Item>
@@ -86,8 +93,14 @@ function layoutPage() {
                 <Menu.Item key="4" icon={<ProfileOutlined />}>
                   Course List
                 </Menu.Item>
+                <Menu.Item key="5" icon={<FileAddOutlined />}>
+                  Add Course
+                </Menu.Item>
+                <Menu.Item key="6" icon={<EditOutlined />}>
+                  Edit Course
+                </Menu.Item>
               </SubMenu>
-              <Menu.Item key="5" icon={<MessageOutlined />}>
+              <Menu.Item key="7" icon={<MessageOutlined />}>
                 Message
               </Menu.Item>
             </Menu>

@@ -12,6 +12,8 @@ import {
   DeploymentUnitOutlined,
   ReadOutlined,
   ProfileOutlined,
+  EditOutlined,
+  FileAddOutlined,
 } from "@ant-design/icons";
 
 function layoutPage() {
@@ -84,10 +86,16 @@ function layoutPage() {
               </SubMenu>
               <SubMenu key="sub3" icon={<ReadOutlined />} title="Course">
                 <Menu.Item key="4" icon={<ProfileOutlined />}>
-                  Course List
+                  All Courses
+                </Menu.Item>
+                <Menu.Item key="5" icon={<FileAddOutlined />}>
+                  Add Course
+                </Menu.Item>
+                <Menu.Item key="6" icon={<EditOutlined />}>
+                  Edit Course
                 </Menu.Item>
               </SubMenu>
-              <Menu.Item key="5" icon={<MessageOutlined />}>
+              <Menu.Item key="7" icon={<MessageOutlined />}>
                 Message
               </Menu.Item>
             </Menu>
