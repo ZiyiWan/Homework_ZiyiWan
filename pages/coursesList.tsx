@@ -86,7 +86,9 @@ function courseList() {
                 </Menu.Item>
               </SubMenu>
               <SubMenu key="sub3" icon={<ReadOutlined />} title="Course">
-                <Menu.Item key="4" icon={<ProfileOutlined />}>
+                <Menu.Item key="4" icon={<ProfileOutlined />} onClick={()=>{
+                  router.push("/coursesList")
+                }}>
                   Course List
                 </Menu.Item>
                 <Menu.Item key="5" icon={<FileAddOutlined />}>
