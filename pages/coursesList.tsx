@@ -14,7 +14,7 @@ import {
   FileAddOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import StudentDetail from "./studentDetail";
+import StudentDetail from "../pageComponent/studentDetail";
 import CourseCard from "../pageComponent/card";
 
 function courseList() {

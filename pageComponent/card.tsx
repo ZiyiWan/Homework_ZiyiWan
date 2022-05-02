@@ -24,9 +24,7 @@ function CourseCard() {
                 <Row>
                   <Col span={12}>2005-11-12 12:00:00</Col>
                   <Col span={2} offset={10}>
-                    <p>
-                      <HeartTwoTone twoToneColor="#eb2f96" /> 5
-                    </p>
+                    <HeartTwoTone twoToneColor="#eb2f96" /> 5
                   </Col>
                 </Row>
               </div>
@@ -35,31 +33,25 @@ function CourseCard() {
             <Row>
               <Col span={12}>Durantion:</Col>
               <Col span={4} offset={8}>
-                <p>
-                  <strong>5 years</strong>
-                </p>
+                <strong>5 years</strong>
               </Col>
             </Row>
             <Divider style={{ margin: "0px" }}></Divider>
             <Row>
               <Col span={12}>Teacher:</Col>
               <Col span={4} offset={8}>
-                <p>
-                  <strong>
-                    <a>Jun Hua</a>
-                  </strong>
-                </p>
+                <strong>
+                  <a>Jun Hua</a>
+                </strong>
               </Col>
             </Row>
             <Divider style={{ margin: "0px" }}></Divider>
             <Row>
               <Col span={12}>
-                <UserOutlined style={{color:"blue"}}/> Student Limit:
+                <UserOutlined style={{ color: "blue" }} /> Student Limit:
               </Col>
               <Col span={2} offset={10}>
-                <p>
-                  <strong>1</strong>
-                </p>
+                <strong>1</strong>
               </Col>
             </Row>
             <Button type="primary">Read More</Button>

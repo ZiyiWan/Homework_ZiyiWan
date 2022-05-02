@@ -262,7 +262,7 @@ function StudentList() {
     setVisibleOfAddStu(false);
   };
 
-  const onEidt = (values: any) => {
+  const onEidt = async (values: any) => {
     console.log("Received values of form: ", values);
     const name: string = values.name;
     const country: string = values.area;
@@ -280,7 +280,7 @@ function StudentList() {
     console.log("stuInfo:", stuNewInfo);
 
     const token = localStorage.getItem("token");
-    editStudent(stuNewInfo, token);
+    await editStudent(stuNewInfo, token);
     getStudents(currentPage, token).then(function (res) {
       setDataSource(res.data.students);
       setTotalPages(res.data.total);
@@ -298,7 +298,7 @@ function StudentList() {
       title: "Name",
       key: "name",
       render: (record: any) => (
-        <Link as={`/student/${record.id}`} href="/layoutStudentDetail">
+        <Link as={`/student/${record.id}`} href="/studentDetailPage">
           <a>{record.name}</a>
         </Link>
       ),

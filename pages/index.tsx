@@ -114,10 +114,10 @@ export default function SignUpPage() {
 
           <Space>
             <span>Already have an account?</span>
-            <Link href="/login">
+            <Link href="/signInPage">
               <a>Sign in</a>
             </Link>
-            <Link href="/studentList">
+            <Link href="/studentListPage">
               <a>List</a>
             </Link>
           </Space>

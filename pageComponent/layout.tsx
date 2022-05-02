@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Breadcrumb, Button, Menu } from "antd";
 import { useRouter } from "next/router";
-import StudentList from "./studentList";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -16,7 +15,7 @@ import {
   FileAddOutlined,
 } from "@ant-design/icons";
 
-function layoutPage() {
+function PageLayout(props: any) {
   const { Header, Sider, Content } = Layout;
   const { SubMenu } = Menu;
   const [collapsed, setCollapsed] = useState(false);
@@ -54,7 +53,12 @@ function layoutPage() {
         </Header>
         <Layout>
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-            <Menu theme="dark" defaultSelectedKeys={["2"]} mode="inline" defaultOpenKeys={["sub1"]}>
+            <Menu
+              theme="dark"
+              defaultSelectedKeys={["2"]}
+              mode="inline"
+              defaultOpenKeys={["sub1"]}
+            >
               <Menu.Item key="1" icon={<DashboardOutlined />}>
                 Overview
               </Menu.Item>
@@ -63,7 +67,7 @@ function layoutPage() {
                   key="2"
                   icon={<TeamOutlined />}
                   onClick={() => {
-                    router.push("/layoutPage");
+                    router.push("/studentListPage");
                   }}
                 >
                   Student List
@@ -78,16 +82,20 @@ function layoutPage() {
                   key="3"
                   icon={<TeamOutlined />}
                   onClick={() => {
-                    router.push("/layoutTeacherList");
+                    router.push("/teacherListPage");
                   }}
                 >
                   Teacher List
                 </Menu.Item>
               </SubMenu>
               <SubMenu key="sub3" icon={<ReadOutlined />} title="Course">
-                <Menu.Item key="4" icon={<ProfileOutlined />} onClick={()=>{
-                  router.push("/coursesList")
-                }}>
+                <Menu.Item
+                  key="4"
+                  icon={<ProfileOutlined />}
+                  onClick={() => {
+                    router.push("/coursesList");
+                  }}
+                >
                   All Courses
                 </Menu.Item>
                 <Menu.Item key="5" icon={<FileAddOutlined />}>
@@ -111,10 +119,11 @@ function layoutPage() {
           >
             <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
+              {}
               <Breadcrumb.Item>Student</Breadcrumb.Item>
               <Breadcrumb.Item>Student List</Breadcrumb.Item>
             </Breadcrumb>
-            <StudentList />
+            {props.children}
           </Content>
         </Layout>
       </Layout>
@@ -122,4 +131,4 @@ function layoutPage() {
   );
 }
 
-export default layoutPage;
+export default PageLayout;

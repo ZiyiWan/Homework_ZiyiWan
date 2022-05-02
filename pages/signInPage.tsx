@@ -90,7 +90,7 @@ export default function SignInPage() {
             <Link href="/">
               <a>Sign up</a>
             </Link>
-            <Link href="/layoutPage">
+            <Link href="/studentListPage">
               <a>List</a>
             </Link>
           </Space>

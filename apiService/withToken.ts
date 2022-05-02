@@ -93,7 +93,7 @@ export async function addStudent(stuInfo: any, token: any) {
 }
 
 export async function editStudent(stuInfo: any, token: any) {
-  putService("students", token, stuInfo);
+  await putService("students", token, stuInfo);
 }
 
 
