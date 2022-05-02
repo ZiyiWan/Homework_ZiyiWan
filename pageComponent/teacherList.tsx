@@ -315,6 +315,7 @@ function TeachersList() {
       </Row>
 
       <Table
+        style={{ marginTop: "13px" }}
         columns={columns}
         dataSource={dataSource}
         pagination={{
