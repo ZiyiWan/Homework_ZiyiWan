@@ -5,7 +5,7 @@ import StudentDetail from "../pageComponent/studentDetail";
 function StudentDetailPage() {
   return (
     <>
-      <PageLayout>
+      <PageLayout type="StudentDetail">
         <StudentDetail/>
       </PageLayout>
     </>

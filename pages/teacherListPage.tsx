@@ -5,7 +5,7 @@ import TeachersList from "../pageComponent/teacherList";
 function TeacherListPage() {
   return (
     <>
-      <PageLayout>
+      <PageLayout type="TeacherList">
         <TeachersList/>
       </PageLayout>
     </>

@@ -5,7 +5,7 @@ import StudentList from "../pageComponent/studentList";
 function StudentListPage() {
   return (
     <>
-      <PageLayout>
+      <PageLayout type="StudentList">
         <StudentList />
       </PageLayout>
     </>

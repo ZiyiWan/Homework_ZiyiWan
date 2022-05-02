@@ -29,6 +29,121 @@ function PageLayout(props: any) {
     setCollapsed(!collapsed);
   }
 
+  function setDefaultSelectedKeys() {
+    let defaultSelectedKey: string = "1";
+    switch (props?.type) {
+      case "StudentList": {
+        defaultSelectedKey = "2";
+        break;
+      }
+      case "StudentDetail": {
+        defaultSelectedKey = "2";
+        break;
+      }
+      case "TeacherList": {
+        defaultSelectedKey = "3";
+        break;
+      }
+      case "TeacherDetail": {
+        defaultSelectedKey = "3";
+        break;
+      }
+      default:
+        break;
+    }
+    return defaultSelectedKey;
+  }
+  function setDefaultOpenKeys() {
+    let defaultOpenKey: string = "";
+    switch (props?.type) {
+      case "StudentList": {
+        defaultOpenKey = "sub1";
+        break;
+      }
+      case "StudentDetail": {
+        defaultOpenKey = "sub1";
+        break;
+      }
+      case "TeacherList": {
+        defaultOpenKey = "sub2";
+        break;
+      }
+      case "TeacherDetail": {
+        defaultOpenKey = "sub2";
+        break;
+      }
+      default:
+        break;
+    }
+    return defaultOpenKey;
+  }
+
+  function setBreadcrumb() {
+    let breadcrumb: any;
+    switch (props?.type) {
+      case "StudentDetail": {
+        breadcrumb = (
+          <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
+            <Breadcrumb.Item>Student</Breadcrumb.Item>
+            <Breadcrumb.Item
+              onClick={() => {
+                router.push("/studentListPage");
+              }}
+            >
+              <a>Student List</a>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Student Detail</Breadcrumb.Item>
+          </Breadcrumb>
+        );
+        break;
+      }
+      case "StudentList": {
+        breadcrumb = (
+          <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
+            <Breadcrumb.Item>Student</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <a>Student List</a>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        );
+        break;
+      }
+      case "TeacherDetail": {
+        breadcrumb = (
+          <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
+            <Breadcrumb.Item>Student</Breadcrumb.Item>
+            <Breadcrumb.Item
+              onClick={() => {
+                router.push("/studentListPage");
+              }}
+            >
+              <a>Student List</a>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Student Detail</Breadcrumb.Item>
+          </Breadcrumb>
+        );
+        break;
+      }
+      case "TeacherList": {
+        breadcrumb = (
+          <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
+            <Breadcrumb.Item>Teacher</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <a>Teacher List</a>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        );
+        break;
+      }
+      default:
+        break;
+    }
+    return breadcrumb;
+  }
   return (
     <>
       <Layout>
@@ -55,9 +170,9 @@ function PageLayout(props: any) {
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
             <Menu
               theme="dark"
-              defaultSelectedKeys={["2"]}
+              defaultSelectedKeys={[setDefaultSelectedKeys()]}
               mode="inline"
-              defaultOpenKeys={["sub1"]}
+              defaultOpenKeys={[setDefaultOpenKeys()]}
             >
               <Menu.Item key="1" icon={<DashboardOutlined />}>
                 Overview
@@ -117,12 +232,7 @@ function PageLayout(props: any) {
               minHeight: 280,
             }}
           >
-            <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
-              {}
-              <Breadcrumb.Item>Student</Breadcrumb.Item>
-              <Breadcrumb.Item>Student List</Breadcrumb.Item>
-            </Breadcrumb>
+            {setBreadcrumb()}
             {props.children}
           </Content>
         </Layout>
