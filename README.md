@@ -23,3 +23,7 @@ getStudents(currentPage, token).then(function (res) {
 1.edit student时 edit了第二个学生第一个学生的信息才更新在页面上
 2.看一下edit教师的页面和teacher detail的页面
 3.Coures 页面的分割线的样式
+-------------------------------------------------------------------------------------
+03/05/2022
+1.add new teacher的form设置默认值后显示为undefined
+2.输入一些教师数据后显示为error 500

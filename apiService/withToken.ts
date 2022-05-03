@@ -92,6 +92,10 @@ export async function addStudent(stuInfo: any, token: any) {
   postService("students", token, stuInfo);
 }
 
+export async function addTeacher(teaInfo: any, token: any) {
+  postService("teachers", token, teaInfo);
+}
+
 export async function editStudent(stuInfo: any, token: any) {
   await putService("students", token, stuInfo);
 }
@@ -99,6 +103,12 @@ export async function editStudent(stuInfo: any, token: any) {
 
 export async function getTeachers(page: number, token: any) {
   const data = getService("teachers?", `page=${page}&limit=10`, token);
+  console.log(data);
+  return data;
+}
+
+export async function getTeacherById(id:number, token: any) {
+  const data = getService("teachers/", `${id}`, token);
   console.log(data);
   return data;
 }

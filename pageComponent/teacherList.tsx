@@ -12,16 +12,18 @@ import {
   Input,
   Row,
   Col,
+  Slider,
 } from "antd";
 import {
   addStudent,
+  addTeacher,
   deleteTeacher,
   getStudents,
   getStudentsByName,
   getTeachers,
 } from "../apiService/withToken";
 import { collectionCreateFormProps } from "../dataModel/dataModel";
-import { PlusOutlined } from "@ant-design/icons";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 function TeachersList() {
   const [dataSource, setDataSource] = useState([]);
@@ -74,11 +76,20 @@ function TeachersList() {
     });
   }
 
+  const prefixSelector = (
+    <Form.Item name="prefix" noStyle required={true}>
+      <Select style={{ width: 70 }} defaultValue="+86">
+        <Option value="86">+86</Option>
+        <Option value="87">+87</Option>
+        <Option value="61">+61</Option>
+      </Select>
+    </Form.Item>
+  );
+
   const CollectionCreateForm: React.FC<collectionCreateFormProps> = ({
     visible,
     onCreate,
     onCancel,
-    onEdit,
   }) => {
     const [form] = Form.useForm();
     return (
@@ -86,7 +97,7 @@ function TeachersList() {
         visible={visible}
         width={500}
         mask={true}
-        title="Add Student"
+        title="Add Teacher"
         okText="Add"
         cancelText="Cancel"
         onCancel={onCancel}
@@ -107,9 +118,10 @@ function TeachersList() {
           name="form_in_modal"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
+          prefix="86"
         >
           <Form.Item name={"name"} label="Name" rules={[{ required: true }]}>
-            <Input placeholder="Student Name" />
+            <Input placeholder="Teacher Name" />
           </Form.Item>
 
           <Form.Item
@@ -129,7 +141,7 @@ function TeachersList() {
             <Input placeholder="Please input email" />
           </Form.Item>
 
-          <Form.Item name="area" label="Area" rules={[{ required: true }]}>
+          <Form.Item name="area" label="Country" rules={[{ required: true }]}>
             <Select>
               <Option value="China">China</Option>
               <Option value="Oman">Oman</Option>
@@ -138,14 +150,77 @@ function TeachersList() {
           </Form.Item>
 
           <Form.Item
-            name="stuType"
-            label="Student Type"
-            rules={[{ required: true }]}
+            name="phone"
+            label="Phone Number"
+            rules={[
+              { required: true, message: "Please input your phone number!" },
+            ]}
           >
-            <Select>
-              <Option value={1}>tester</Option>
-              <Option value={2}>developer</Option>
-            </Select>
+            <Input
+              addonBefore={prefixSelector}
+              style={{ width: "100%" }}
+              placeholder="mobile phone"
+            />
+          </Form.Item>
+          <Form.Item label="Skills">
+            <Form.List name="skills">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Space
+                      key={key}
+                      style={{ display: "flex", marginBottom: 8 }}
+                      align="baseline"
+                    >
+                      <Row>
+                        <Col span={10}>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "name"]}
+                            rules={[
+                              { required: true, message: "Missing skill name" },
+                            ]}
+                          >
+                            <Input placeholder="Skill Name" />
+                          </Form.Item>
+                        </Col>
+                        <Col span={2}> </Col>
+                        <Col span={12}>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "level"]}
+                            rules={[
+                              {
+                                required: true,
+                                message: "Missing skill rating",
+                              },
+                            ]}
+                          >
+                            <Slider
+                              min={0}
+                              max={5}
+                              style={{ width: "135px" }}
+                              defaultValue={1}
+                            />
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                      <MinusCircleOutlined onClick={() => remove(name)} />
+                    </Space>
+                  ))}
+                  <Form.Item>
+                    <Button
+                      type="dashed"
+                      onClick={() => add()}
+                      block
+                      icon={<PlusOutlined />}
+                    >
+                      Add Skill
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
           </Form.Item>
         </Form>
       </Modal>
@@ -157,18 +232,20 @@ function TeachersList() {
     const name: string = values.name;
     const country: string = values.area;
     const email: string = values.email;
-    const type: number = values.stuType;
+    const phone: string = "+" + values.prefix + values.phone;
+    const skills: [] = values.skills;
 
-    const stuInfo = {
+    const teaInfo = {
       name,
       country,
+      phone,
+      skills,
       email,
-      type,
     };
-    console.log("stuInfo:", stuInfo);
+    console.log("teaInfo:", teaInfo);
 
     const token = localStorage.getItem("token");
-    addStudent(stuInfo, token);
+    addTeacher(teaInfo, token);
     setVisibleOfAddStu(false);
   };
 
@@ -202,7 +279,7 @@ function TeachersList() {
       title: "Name",
       key: "name",
       render: (record: any) => (
-        <Link as={`/student/${record.id}`} href="/layoutStudentDetail">
+        <Link as={`/teacher/${record.id}`} href="/teacherDetailPage">
           <a>{record.name}</a>
         </Link>
       ),
