@@ -72,3 +72,25 @@ export interface studentInfo {
   };
   updatedAt: string;
 }
+
+export interface teacherInfo {
+  country: string;
+  coursesAmount: number;
+  createdAt: string;
+  email: string;
+  name: string;
+  phone: string;
+  profileId: number;
+  profile: {
+    createdAt: string;
+    updatedAt: string;
+    id: number;
+    address: [];
+    gender: number;
+    birthday: string;
+    avatar: string;
+    description: string;
+  };
+  updatedAt: string;
+  skills: [{ name: string; level: number }];
+}

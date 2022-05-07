@@ -114,15 +114,15 @@ function PageLayout(props: any) {
         breadcrumb = (
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
-            <Breadcrumb.Item>Student</Breadcrumb.Item>
+            <Breadcrumb.Item>Teacher</Breadcrumb.Item>
             <Breadcrumb.Item
               onClick={() => {
-                router.push("/studentListPage");
+                router.push("/teacherListPage");
               }}
             >
-              <a>Student List</a>
+              <a>Teacher List</a>
             </Breadcrumb.Item>
-            <Breadcrumb.Item>Student Detail</Breadcrumb.Item>
+            <Breadcrumb.Item>Teacher Detail</Breadcrumb.Item>
           </Breadcrumb>
         );
         break;

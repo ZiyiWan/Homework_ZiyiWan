@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getStudentsById } from "../apiService/withToken";
-import { studentInfo } from "../dataModel/dataModel";
+import { getStudentsById, getTeacherById } from "../apiService/withToken";
+import { studentInfo, teacherInfo } from "../dataModel/dataModel";
 import {
   Row,
   Col,
@@ -11,38 +11,39 @@ import {
   Tag,
   Divider,
   Table,
+  Rate,
 } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 export default function TeacherDetail() {
   const router = useRouter();
   const teaId: number = parseInt(router.asPath.slice(9));
-  const [stu, setStu] = useState<studentInfo>();
+  const [teacher, setTeacher] = useState<teacherInfo>();
   const [gender, setGender] = useState("");
   const [dataSource, setDataSource] = useState([]);
   const { TabPane } = Tabs;
   useEffect(() => {
     const token = localStorage.getItem("token");
     console.log(token);
-    getStudentsById(teaId, token).then(function (res) {
+    getTeacherById(teaId, token).then(function (res) {
       console.log(res.data);
       const data = res.data;
-      const stuGender = data.gender;
-      const courses = data.courses;
-      const coursesData: any = courses.map((course: any) => {
-        return {
-          courseId: course.createdAt,
-          name: course.name,
-          type: course.type?.map((type:any)=> type.name).join(","),
-          updatedAt: course.updatedAt,
-        };
-      });
-      console.log(courses);
-      setDataSource(coursesData);
-      setStu(data);
-      if (stuGender === 1) {
+      const teaGender = data.profile.gender;
+      // const courses = data.courses;
+      // const coursesData: any = courses.map((course: any) => {
+      //   return {
+      //     courseId: course.createdAt,
+      //     name: course.name,
+      //     type: course.type?.map((type:any)=> type.name).join(","),
+      //     updatedAt: course.updatedAt,
+      //   };
+      // });
+      // console.log(courses);
+      // setDataSource(coursesData);
+      setTeacher(data);
+      if (teaGender === 1) {
         setGender("Male");
-      } else if (stuGender === 2) {
+      } else if (teaGender === 2) {
         setGender("Female");
       }
     });
@@ -91,31 +92,31 @@ export default function TeacherDetail() {
                   label="Name"
                   labelStyle={{ fontWeight: "bolder" }}
                 >
-                  {stu?.name}
+                  {teacher?.name}
                 </Descriptions.Item>
                 <Descriptions.Item
-                  label="Age"
+                  label="Country"
                   labelStyle={{ fontWeight: "bolder" }}
                 >
-                  {stu?.age}
+                  {teacher?.country}
                 </Descriptions.Item>
                 <Descriptions.Item
                   label="Email"
                   labelStyle={{ fontWeight: "bolder" }}
                 >
-                  {stu?.email}
+                  {teacher?.email}
                 </Descriptions.Item>
                 <Descriptions.Item
                   label="Phone"
                   labelStyle={{ fontWeight: "bolder" }}
                 >
-                  {stu?.phone}
+                  {teacher?.phone}
                 </Descriptions.Item>
                 <Descriptions.Item
                   label="Address"
                   labelStyle={{ fontWeight: "bolder" }}
                 >
-                  {stu?.address}
+                  {teacher?.profile.address}
                 </Descriptions.Item>
               </Descriptions>
             </div>
@@ -143,16 +144,10 @@ export default function TeacherDetail() {
                 </span>
                 <Descriptions column={1} style={{ marginTop: "20px" }}>
                   <Descriptions.Item
-                    label="Education"
+                    label="Birthday"
                     labelStyle={{ fontWeight: "bolder" }}
                   >
-                    {stu?.education}
-                  </Descriptions.Item>
-                  <Descriptions.Item
-                    label="Area"
-                    labelStyle={{ fontWeight: "bolder" }}
-                  >
-                    {stu?.country}
+                    {teacher?.profile.birthday}
                   </Descriptions.Item>
                   <Descriptions.Item
                     label="Gender"
@@ -161,28 +156,16 @@ export default function TeacherDetail() {
                     {gender}
                   </Descriptions.Item>
                   <Descriptions.Item
-                    label="Member Period"
-                    labelStyle={{ fontWeight: "bolder" }}
-                  >
-                    {stu?.memberStartAt} - {stu?.memberEndAt}
-                  </Descriptions.Item>
-                  <Descriptions.Item
-                    label="Type"
-                    labelStyle={{ fontWeight: "bolder" }}
-                  >
-                    {stu?.type?.name}
-                  </Descriptions.Item>
-                  <Descriptions.Item
                     label="Create Time"
                     labelStyle={{ fontWeight: "bolder" }}
                   >
-                    {stu?.createdAt}
+                    {teacher?.createdAt}
                   </Descriptions.Item>
                   <Descriptions.Item
                     label="Update Time"
                     labelStyle={{ fontWeight: "bolder" }}
                   >
-                    {stu?.updatedAt}
+                    {teacher?.updatedAt}
                   </Descriptions.Item>
                 </Descriptions>
                 <span
@@ -192,11 +175,22 @@ export default function TeacherDetail() {
                     fontWeight: "bolder",
                   }}
                 >
-                  Interesting
+                  Skills
                 </span>
                 <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-                  {stu?.interest.map((item) => {
-                    return <Tag color="magenta">{item}</Tag>;
+                  {teacher?.skills.map((item) => {
+                    return (
+                      <>
+                        <Row>
+                          <Col span={8}>
+                            <Tag color="magenta">{item.name}</Tag>
+                          </Col>
+                          <Col span={8}>
+                            <Rate disabled defaultValue={item.level} />
+                          </Col>
+                        </Row>
+                      </>
+                    );
                   })}
                 </div>
                 <span
@@ -208,7 +202,9 @@ export default function TeacherDetail() {
                 >
                   Description
                 </span>
-                <div style={{ marginTop: "20px" }}>{stu?.description}</div>
+                <div style={{ marginTop: "20px" }}>
+                  {teacher?.profile.description}
+                </div>
               </TabPane>
               <TabPane tab="Courses" key="2">
                 <Table dataSource={dataSource} columns={columns}></Table>
