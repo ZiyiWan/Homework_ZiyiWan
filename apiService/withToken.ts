@@ -116,3 +116,9 @@ export async function getTeacherById(id:number, token: any) {
 export async function deleteTeacher(id: number, token: any) {
   deleteService("teachers/", `${id}`, token);
 }
+
+export async function getCourses(limit: number, token: any) {
+  const data = getService("courses?", `page=1&limit=${limit}`, token);
+  console.log(data);
+  return data;
+}

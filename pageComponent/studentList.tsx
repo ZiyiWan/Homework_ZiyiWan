@@ -39,6 +39,7 @@ function StudentList() {
     getStudents(1, token).then(function (res) {
       console.log(res.data.students);
       setDataSource(res.data.students);
+      console.log(dataSource)
       setTotalPages(res.data.total);
     });
   }, []);

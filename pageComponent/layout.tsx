@@ -139,6 +139,18 @@ function PageLayout(props: any) {
         );
         break;
       }
+      case "CourseList": {
+        breadcrumb = (
+          <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
+            <Breadcrumb.Item>Course</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <a>Courses List</a>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        );
+        break;
+      }
       default:
         break;
     }
@@ -208,7 +220,7 @@ function PageLayout(props: any) {
                   key="4"
                   icon={<ProfileOutlined />}
                   onClick={() => {
-                    router.push("/coursesList");
+                    router.push("/coursesListPage");
                   }}
                 >
                   All Courses

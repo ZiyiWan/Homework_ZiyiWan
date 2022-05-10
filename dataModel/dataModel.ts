@@ -94,3 +94,29 @@ export interface teacherInfo {
   updatedAt: string;
   skills: [{ name: string; level: number }];
 }
+
+interface courseInfo {
+  createdAt: string;
+  updatedAt: string;
+  id: number;
+  cover: string;
+  detail: string;
+  duration: number;
+  durationUnit: string;
+  maxStudents: number;
+  name: string;
+  price: number;
+  uid: string;
+  star: number;
+  startTime: string;
+  status: number;
+  scheduleId: number;
+  teacherId: number;
+  type: { id: number; name: string }[];
+  teacherName: string;
+}
+
+export interface course {
+  info: courseInfo;
+}
+
