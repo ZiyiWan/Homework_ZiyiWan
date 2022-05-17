@@ -122,3 +122,9 @@ export async function getCourses(limit: number, token: any) {
   console.log(data);
   return data;
 }
+
+export async function getCourseById(id:number, token: any) {
+  const data = getService("courses/detail?id=", `${id}`, token);
+  console.log(data);
+  return data;
+}

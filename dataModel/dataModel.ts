@@ -120,3 +120,61 @@ export interface course {
   info: courseInfo;
 }
 
+export interface courseDetail {
+  createdAt: string;
+  updatedAt: string;
+  id: number;
+  cover: string;
+  detail: string;
+  duration: number;
+  durationUnit: string;
+  maxStudents: number;
+  name: string;
+  price: number;
+  uid: string;
+  star: number;
+  startTime: string;
+  status: number;
+  scheduleId: number;
+  teacherId: number;
+  type: { id: number; name: string }[];
+  teacherName: string;
+  sales: {
+    batches: number;
+    createdAt: string;
+    earnings: number;
+    id: number;
+    paidAmount: number;
+    paidIds: [number];
+    price: number;
+    studentAmount: number;
+    updatedAt: string;
+  };
+  schedule: {
+    chapters: {
+      createdAt: string;
+      updatedAt: string;
+      id: number;
+      name: string;
+      order: number;
+      content: string;
+    }[];
+    classTime: [string];
+    createdAt: string;
+    current: number;
+    id: number;
+    status: number;
+    updatedAt: string;
+  };
+  teacher: {
+    country: string;
+    courseAmount: number;
+    createdAt: string;
+    email: string;
+    id: number;
+    name: string;
+    phone: string;
+    profileId: number;
+    updatedAt: string;
+  };
+}

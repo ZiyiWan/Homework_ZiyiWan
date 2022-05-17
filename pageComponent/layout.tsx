@@ -153,8 +153,23 @@ function PageLayout(props: any) {
             <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
             <Breadcrumb.Item>Course</Breadcrumb.Item>
             <Breadcrumb.Item>
-              <a>Courses List</a>
+              <a>All Courses</a>
             </Breadcrumb.Item>
+          </Breadcrumb>
+        );
+        break;
+      }
+      case "CourseDetail": {
+        breadcrumb = (
+          <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
+            <Breadcrumb.Item>Course</Breadcrumb.Item>
+            <Breadcrumb.Item onClick={() => {
+                router.push("/coursesListPage");
+              }}>
+              <a>All Courses</a>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>Detail</Breadcrumb.Item>
           </Breadcrumb>
         );
         break;

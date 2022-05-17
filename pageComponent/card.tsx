@@ -2,11 +2,13 @@ import { HeartTwoTone, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Divider, Row } from "antd";
 import React from "react";
 import { course } from "../dataModel/dataModel";
+import { useRouter } from "next/router";
 
 function CourseCard({ info }: course) {
+  const router = useRouter();
   return (
     <>
-      <div style={{margin:"5px"}}>
+      <div style={{ margin: "5px" }}>
         <Col span={6}>
           <Card
             style={{ width: 390 }}
@@ -55,7 +57,14 @@ function CourseCard({ info }: course) {
                 <strong>{info.maxStudents}</strong>
               </Col>
             </Row>
-            <Button type="primary" onClick={()=>{}}>Read More</Button>
+            <Button
+              type="primary"
+              onClick={() => {
+                router.push("courseDetailPage", `/course/${info.id}`);
+              }}
+            >
+              Read More
+            </Button>
           </Card>
         </Col>
       </div>
