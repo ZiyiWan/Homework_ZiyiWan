@@ -48,6 +48,10 @@ function PageLayout(props: any) {
         defaultSelectedKey = "3";
         break;
       }
+      case "CourseList": {
+        defaultSelectedKey = "4";
+        break;
+      }
       default:
         break;
     }
@@ -70,6 +74,10 @@ function PageLayout(props: any) {
       }
       case "TeacherDetail": {
         defaultOpenKey = "sub2";
+        break;
+      }
+      case "CourseList": {
+        defaultOpenKey = "sub3";
         break;
       }
       default:
