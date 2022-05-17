@@ -31,3 +31,8 @@ getStudents(currentPage, token).then(function (res) {
 10/05/2022
 1.如何一次map多个元素
 2.课程卡片的教师名字居右
+-------------------------------------------------------------------------------------
+17/05/2022
+1.course read more 详情页面的card的底部线框
+2.chapter的tag
+3.当前展开的chapter设置defaultActiveKey会有类型问题 courseDetail文件的171行
