@@ -168,7 +168,7 @@ export default function CourseDetail() {
               return <Tag color="blue">{item.name}</Tag>;
             })}
             <h3 style={{ marginTop: "15px" }}>Description</h3>
-            <Collapse accordion defaultActiveKey={[course?.schedule.status]}>
+            <Collapse accordion defaultActiveKey={[course?.schedule.current]}>
               {course?.schedule.chapters.map((chapter) => {
                 return (
                   <Panel header={chapter.name} key={chapter.id}>
