@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { getCourses } from "../apiService/withToken";
 import PageLayout from "../pageComponent/layout";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 import CourseCard from "../pageComponent/card";
 
 function CoursesListPage() {
@@ -40,13 +40,11 @@ function CoursesListPage() {
           loader={<h3>Loading...</h3>}
           endMessage={<h4>Nothing more to show</h4>}
         >
-          {coursesList.map((course) => {
-            return (
-              <>
-                <CourseCard info={course} />
-              </>
-            );
-          })}
+          <Row>
+            {coursesList.map((course) => {
+              return <CourseCard info={course} />;
+            })}{" "}
+          </Row>
         </InfiniteScroll>
       </PageLayout>
     </>

@@ -3,18 +3,17 @@ import { Button, Card, Col, Divider, Row } from "antd";
 import React from "react";
 import { course } from "../dataModel/dataModel";
 
-
-function CourseCard({info}: course) {
+function CourseCard({ info }: course) {
   return (
     <>
-      <Row>
+      <div style={{margin:"5px"}}>
         <Col span={6}>
           <Card
             style={{ width: 390 }}
             cover={
               <img
                 alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                src="https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png"
               />
             }
           >
@@ -22,7 +21,7 @@ function CourseCard({info}: course) {
               <p>
                 <strong>{info.name}</strong>
               </p>
-              <div>
+              <div style={{ margin: "3px" }}>
                 <Row>
                   <Col span={12}>{info.startTime}</Col>
                   <Col span={2} offset={10}>
@@ -32,15 +31,15 @@ function CourseCard({info}: course) {
               </div>
             </div>
             <Divider style={{ margin: "0px" }}></Divider>
-            <Row>
-              <Col span={12}>Durantion:</Col>
-              <Col span={4} offset={8}>
+            <Row justify="space-between" style={{ margin: "3px" }}>
+              <Col>Durantion:</Col>
+              <Col>
                 <strong>{info.duration} years</strong>
               </Col>
             </Row>
             <Divider style={{ margin: "0px" }}></Divider>
-            <Row>
-              <Col span={14}>Teacher:</Col>
+            <Row justify="space-between" style={{ margin: "3px" }}>
+              <Col>Teacher:</Col>
               <Col>
                 <strong>
                   <a>{info.teacherName}</a>
@@ -48,18 +47,18 @@ function CourseCard({info}: course) {
               </Col>
             </Row>
             <Divider style={{ margin: "0px" }}></Divider>
-            <Row>
-              <Col span={12}>
+            <Row justify="space-between" style={{ margin: "3px" }}>
+              <Col>
                 <UserOutlined style={{ color: "blue" }} /> Student Limit:
               </Col>
-              <Col span={2} offset={10}>
+              <Col>
                 <strong>{info.maxStudents}</strong>
               </Col>
             </Row>
-            <Button type="primary">Read More</Button>
+            <Button type="primary" onClick={()=>{}}>Read More</Button>
           </Card>
         </Col>
-      </Row>
+      </div>
     </>
   );
 }
