@@ -168,11 +168,18 @@ export default function CourseDetail() {
               return <Tag color="blue">{item.name}</Tag>;
             })}
             <h3 style={{ marginTop: "15px" }}>Description</h3>
-            <Collapse accordion defaultActiveKey={[course?.schedule.current]}>
+            <Collapse
+              defaultActiveKey={
+                course?.schedule.chapters[course.schedule.current].id
+              }
+            >
               {course?.schedule.chapters.map((chapter) => {
+                console.log(
+                  course?.schedule.chapters[course.schedule.current].id
+                );
                 return (
                   <Panel header={chapter.name} key={chapter.id}>
-                    <p>{chapter.content}</p>
+                    <p>{chapter.content} {chapter.id}</p>
                   </Panel>
                 );
               })}
