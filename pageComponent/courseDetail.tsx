@@ -29,6 +29,7 @@ export default function CourseDetail() {
       setCourse(res.data);
     });
   }, []);
+  if(!course)return (<div/>)
   return (
     <>
       <Row style={{ background: "white" }}>
@@ -179,7 +180,7 @@ export default function CourseDetail() {
                 );
                 return (
                   <Panel header={chapter.name} key={chapter.id}>
-                    <p>{chapter.content} {chapter.id}</p>
+                    <p>{chapter.content}</p>
                   </Panel>
                 );
               })}
