@@ -52,6 +52,10 @@ function PageLayout(props: any) {
         defaultSelectedKey = "4";
         break;
       }
+      case "AddCourse": {
+        defaultSelectedKey = "5";
+        break;
+      }
       default:
         break;
     }
@@ -77,6 +81,10 @@ function PageLayout(props: any) {
         break;
       }
       case "CourseList": {
+        defaultOpenKey = "sub3";
+        break;
+      }
+      case "AddCourse": {
         defaultOpenKey = "sub3";
         break;
       }
@@ -174,6 +182,19 @@ function PageLayout(props: any) {
         );
         break;
       }
+      case "AddCourse": {
+        breadcrumb = (
+          <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>CMS MANAGER SYSTEM</Breadcrumb.Item>
+            <Breadcrumb.Item>Course</Breadcrumb.Item>
+            <Breadcrumb.Item >
+              <a>Add Course</a>
+            </Breadcrumb.Item>
+            
+          </Breadcrumb>
+        );
+        break;
+      }
       default:
         break;
     }
@@ -248,7 +269,9 @@ function PageLayout(props: any) {
                 >
                   All Courses
                 </Menu.Item>
-                <Menu.Item key="5" icon={<FileAddOutlined />}>
+                <Menu.Item key="5" icon={<FileAddOutlined />} onClick={() => {
+                    router.push("/addCoursePage");
+                  }}>
                   Add Course
                 </Menu.Item>
                 <Menu.Item key="6" icon={<EditOutlined />}>

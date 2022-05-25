@@ -29,7 +29,16 @@ export default function CourseDetail() {
       setCourse(res.data);
     });
   }, []);
-  if(!course)return (<div/>)
+  if (!course) return <div />;
+  const genExtra = (id: any, current: any) => {
+    if (id === current) {
+      return <Tag color="processing">processing</Tag>;
+    } else if (id < current) {
+      return <Tag color="default">finished</Tag>;
+    } else {
+      return <Tag color="warning">pedding</Tag>;
+    }
+  };
   return (
     <>
       <Row style={{ background: "white" }}>
@@ -179,7 +188,14 @@ export default function CourseDetail() {
                   course?.schedule.chapters[course.schedule.current].id
                 );
                 return (
-                  <Panel header={chapter.name} key={chapter.id}>
+                  <Panel
+                    header={chapter.name}
+                    key={chapter.id}
+                    extra={genExtra(
+                      chapter.id,
+                      course?.schedule.chapters[course.schedule.current].id
+                    )}
+                  >
                     <p>{chapter.content}</p>
                   </Panel>
                 );
